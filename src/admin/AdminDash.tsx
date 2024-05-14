@@ -1,3 +1,10 @@
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 import React, { useEffect, useState } from "react";
 import { getProxyy } from "../App";
 import moment from "moment";
@@ -92,54 +99,72 @@ function AdminDash() {
         <div className="row">
           <div className="col-md-8">
             <h1>Add/Edit Cars + Jobs</h1>
-            <button className="btn btn-primary">
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                window.location.href = "/addCar";
+              }}
+            >
               Add Car
             </button>
             {cars.map((car, i) => (
               <div key={i}>
-                <h3>{(car as any).nPlate}</h3>
-                <table>
-                  {(car as any).jobs.length > 0 && (
-                    <thead>
-                      <tr>
-                        <th>Status</th>
-                        <th>Tasks</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                  )}
-                  <tbody>
-                    {(car as any).jobs.map((job, i) => (
-                      <tr
-                        key={i}
-                        onClick={() => {
-                          window.location.href = "/jobDash/" + job.id;
-                        }}
-                      >
-                        <td>{job.status}</td>
-                        <td>{job.tasks}</td>
-                        {job.date != null && (
-                          <td>
-                            {moment(
-                              (job.date as string).split("T", 1),
-                              "YYYY-MM-DD"
-                            )
-                              .format("DD.MM.YYYY")
-                              .toString()}
-                          </td>
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ArrowDownwardIcon />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                  >
+                    <Typography>{(car as any).nPlate}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <table>
+                      {(car as any).jobs.length > 0 && (
+                        <thead>
+                          <tr>
+                            <th>Status</th>
+                            <th>Tasks</th>
+                            <th>Date</th>
+                          </tr>
+                        </thead>
+                      )}
+                      <tbody>
+                        {(car as any).jobs.map((job, i) => (
+                          <tr
+                            key={i}
+                            onClick={() => {
+                              window.location.href = "/jobDash/" + job.id;
+                            }}
+                          >
+                            <td>{job.status}</td>
+                            <td>{job.tasks}</td>
+                            {job.date != null && (
+                              <td>
+                                {moment(
+                                  (job.date as string).split("T", 1),
+                                  "YYYY-MM-DD"
+                                )
+                                  .format("DD.MM.YYYY")
+                                  .toString()}
+                              </td>
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </AccordionDetails>
+                </Accordion>
               </div>
             ))}
           </div>
           <div className="col-md-4">
             <h1>Edit Checklist</h1>
-            <button className="btn btn-primary" onClick={() => {
-                          window.location.href = "/addChecklist";
-                        }}>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                window.location.href = "/addChecklist";
+              }}
+            >
               Add Item
             </button>
             <table>

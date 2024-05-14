@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getProxyy } from "../App";
 
 function AddCar() {
+  const [role, setRole] = useState(null);
   const [userData, setUserData] = useState({
     nPlate: "",
     VIN: "",
@@ -24,15 +25,31 @@ function AddCar() {
     };
     const response = await fetch(getProxyy() + "/car/add", options);
     console.log(response.status);
-
     if (response.status === 201) {
-      window.location.replace("/dash");
+      if(role==2)
+        {
+          window.location.replace("/carDash");
+        }
+      else{
+          window.location.replace("/dash");
+      }
     } else {
       const errresp = await response.json();
       alert(response.status + ": " + errresp.err);
     }
   }
-
+  const token = localStorage.getItem("token");
+  const fetchData = async () => {
+    fetch(getProxyy() + `/user?token=` + token)
+      .then((response) => response.json())
+      .then((data) => {
+        setRole((data as any).role);
+      });
+  };
+  useEffect(() => {
+    fetchData();
+    console.log(role);
+  }, []);
   return (
     <>
       <section className="add">

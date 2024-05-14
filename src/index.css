@@ -385,6 +385,14 @@ tr {
   color: #a5d7e8;
   width: 100%;
 }
+.admin .MuiPaper-root{
+  background-color: #19376d;
+  margin-top: 1rem;
+}
+.admin .MuiTypography-root{
+  font-family: "Audiowide", sans-serif;
+  color: #a5d7e8;
+}
 .admin table,
 td,
 th,
