@@ -17,10 +17,11 @@ function MecanicDash() {
       },
       body: JSON.stringify({ token: lsToken }),
     };
-    const response = await fetch(getProxyy() + "/cars/jobs", options);
+    const response = await fetch(getProxyy() + "/mecanic/car", options);
     if (response.status === 201) {
       const data = await response.json();
       setCars(data);
+      console.log(data);
     } else {
       alert("An error occured on loading your tasks");
     }
@@ -32,41 +33,43 @@ function MecanicDash() {
           <h1>My Jobs</h1>
           {cars.map((car, i) => (
             <div key={i}>
-              <h1>{(car as any).nPlate}</h1>
-              <table>
-                {(car as any).jobs.length > 0 && (
-                  <thead>
-                    <tr>
-                      <th>Status</th>
-                      <th>Tasks</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                )}
-                <tbody>
-                  {(car as any).jobs.map((job, i) => (
-                    <tr
-                      key={i}
-                      onClick={() => {
-                        window.location.href="/jobDash/" + job.id;
-                      }}
-                    >
-                      <td>{job.status}</td>
-                      <td>{job.tasks}</td>
-                      {job.date != null && (
-                        <td>
-                          {moment(
-                            (job.date as string).split("T", 1),
-                            "YYYY-MM-DD"
-                          )
-                            .format("DD.MM.YYYY")
-                            .toString()}
-                        </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {(car as any).jobs.length > 0 && (
+                <>
+                  <h1>{(car as any).nPlate}</h1>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Tasks</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(car as any).jobs.map((job, i) => (
+                        <tr
+                          key={i}
+                          onClick={() => {
+                            window.location.href = "/jobDash/" + job.id;
+                          }}
+                        >
+                          <td>{job.status}</td>
+                          <td>{job.tasks}</td>
+                          {job.date != null && (
+                            <td>
+                              {moment(
+                                (job.date as string).split("T", 1),
+                                "YYYY-MM-DD"
+                              )
+                                .format("DD.MM.YYYY")
+                                .toString()}
+                            </td>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
             </div>
           ))}
         </div>

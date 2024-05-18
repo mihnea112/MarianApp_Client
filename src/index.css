@@ -399,6 +399,21 @@ th,
 tr {
   border: 2px solid #a5d7e8;
 }
+.admin .MuiFormLabel-root{
+  color: #0b2447;
+}
+.admin .SearchCar input{
+  background-color: #a5d7e8!important;
+}
+.admin .SearchCar{
+  margin-top: 0.5rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+  background-color: #a5d7e8;
+}
+.admin .SearchMechanic{
+  border-radius: 4px;
+}
 .admin .btn {
   background-color: #19376d !important;
   color: #a5d7e8 !important;

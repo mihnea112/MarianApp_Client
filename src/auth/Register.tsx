@@ -80,7 +80,6 @@ function Register() {
                 onChange={handleChange}
                 value={userData.adresa}
                 placeholder="Adresa"
-                onMouseOut={()=>{alert("aborted")}}
               />
             </div>
             <div className="form-group">

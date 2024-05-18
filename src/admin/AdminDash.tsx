@@ -3,11 +3,13 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 import React, { useEffect, useState } from "react";
 import { getProxyy } from "../App";
 import moment from "moment";
+import { start } from "repl";
 
 function AdminDash() {
   const [cars, setCars] = useState([]);
@@ -15,6 +17,7 @@ function AdminDash() {
   const [add, setAdd] = useState(false);
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
+  const [search, setSearch] = useState("");
   const lsToken = localStorage.getItem("token");
   const options = {
     method: "POST",
@@ -38,6 +41,7 @@ function AdminDash() {
     if (response.status === 201) {
       const data = await response.json();
       setCars(data);
+      console.log(data);
     } else {
       alert("An error occured on loading your tasks");
     }
@@ -107,55 +111,77 @@ function AdminDash() {
             >
               Add Car
             </button>
-            {cars.map((car, i) => (
-              <div key={i}>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ArrowDownwardIcon />}
-                    aria-controls="panel1-content"
-                    id="panel1-header"
-                  >
-                    <Typography>{(car as any).nPlate}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <table>
-                      {(car as any).jobs.length > 0 && (
-                        <thead>
-                          <tr>
-                            <th>Status</th>
-                            <th>Tasks</th>
-                            <th>Date</th>
-                          </tr>
-                        </thead>
-                      )}
-                      <tbody>
-                        {(car as any).jobs.map((job, i) => (
-                          <tr
-                            key={i}
-                            onClick={() => {
-                              window.location.href = "/jobDash/" + job.id;
-                            }}
-                          >
-                            <td>{job.status}</td>
-                            <td>{job.tasks}</td>
-                            {job.date != null && (
-                              <td>
-                                {moment(
-                                  (job.date as string).split("T", 1),
-                                  "YYYY-MM-DD"
-                                )
-                                  .format("DD.MM.YYYY")
-                                  .toString()}
+            <SearchCar
+              search={search}
+              setSearch={setSearch}
+              options={cars.map((car: { nPlate: string }) => car.nPlate)}
+            ></SearchCar>
+            {cars
+              .filter((car: any) => car.nPlate.includes(search))
+              .map((car, i) => (
+                <div key={i}>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ArrowDownwardIcon />}
+                      aria-controls="panel1-content"
+                      id="panel1-header"
+                    >
+                      <Typography>{(car as any).nPlate}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <table>
+                        {(car as any).jobs.length > 0 && (
+                          <thead>
+                            <tr>
+                              <th>Status</th>
+                              <th>Tasks</th>
+                              <th>Date</th>
+                              <th>Assigned to</th>
+                            </tr>
+                          </thead>
+                        )}
+                        <tbody>
+                          {(car as any).jobs.map((job, i) => (
+                            <tr
+                              key={i}
+                              onClick={() => {
+                                window.location.href = "/jobDash/" + job.id;
+                              }}
+                            >
+                              <td>{job.status}</td>
+                              <td>{job.tasks}</td>
+                              {job.date != null && (
+                                <td>
+                                  {moment(
+                                    (job.date as string).split("T", 1),
+                                    "YYYY-MM-DD"
+                                  )
+                                    .format("DD.MM.YYYY")
+                                    .toString()}
+                                </td>
+                              )}
+                              <td
+                                onClick={(e: any) => {
+                                  e.stopPropagation();
+                                }}
+                              >
+                                <SearchMechanic
+                                  jobid={job.id}
+                                  startValue={job.mecanic?.name}
+                                  options={users.map(
+                                    (user: { name: string }) => user.name
+                                  )}
+                                  mechanics={users.map((user:{id:number,name:string})=>({id:user.id,name:user.name}))}
+                                ></SearchMechanic>
                               </td>
-                            )}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-            ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+              ))}
           </div>
           <div className="col-md-4">
             <h1>Edit Checklist</h1>
@@ -311,5 +337,101 @@ function CheckItem({ checkItem, id }: { checkItem: string; id: number }) {
         <i className="bi bi-trash" onClick={deleteCheck}></i>
       </td>
     </tr>
+  );
+}
+function SearchCar({
+  options,
+  search,
+  setSearch,
+}: {
+  options: string[];
+  search: string;
+  setSearch: (str: string) => void;
+}) {
+  // const options = ['Option 1', 'Option 2'];
+
+  //[string, React.Dispatch<React.SetStateAction<string>>]
+
+  const [inputValue, setInputValue] = React.useState("");
+  return (
+    <div className="SearchCar">
+      <Autocomplete
+        value={search}
+        onChange={(_: any, newValue: string | null) => {
+          console.log(newValue);
+
+          setSearch(newValue || "");
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        id="SearchCar"
+        options={options}
+        renderInput={(params) => <TextField {...params} label="Search" />}
+      />
+    </div>
+  );
+}
+function SearchMechanic({
+  options,
+  startValue,
+  jobid,
+  mechanics
+}: {
+  jobid: number,
+  startValue?: string;
+  options: string[];
+  mechanics: {id:number,name:string}[]
+
+}) {
+  // const options = ['Option 1', 'Option 2'];
+
+  //[string, React.Dispatch<React.SetStateAction<string>>]
+
+  const [value, setValue] = useState(startValue || "");
+  async function handleAdd(id:number) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({id:jobid, mecid: id }),
+    };
+    const response = await fetch(getProxyy() + "/job/mecanic", options);
+    if (response.status === 201) {
+      alert("Mecanic added");
+    } else {
+      alert("Mecanic adress is not valid");
+    }
+  }
+
+  const [inputValue, setInputValue] = React.useState(startValue || "");
+  return (
+    <div className="SearchMechanic">
+      <Autocomplete
+        value={value}
+        onChange={(_: any, newValue: string | null) => {
+          setValue(newValue || "");
+          if(newValue!=null)
+            {
+              const [mecanicId]=mechanics.filter((user: any) => user.name === (newValue)).map((user:{id:number})=>user.id)
+              handleAdd(mecanicId)
+            }
+          else
+            handleAdd(0)
+          console.log(newValue);
+          
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        id=""
+        options={options}
+        renderInput={(params) => <TextField {...params} label="Search" />}
+      />
+    </div>
   );
 }
