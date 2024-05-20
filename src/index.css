@@ -338,6 +338,10 @@ tr {
   background-color: #0b2447;
   padding-bottom: 2rem;
 }
+.job .margin{
+  margin-bottom: 1rem;
+}
+
 .job h1,
 .job h5,
 .job h3 {
@@ -360,6 +364,23 @@ tr {
   background-color: #19376d !important;
   color: #a5d7e8 !important;
   border-color: #19376d;
+}
+.job .MuiPaper-root{
+  background-color: #19376d;
+  margin-top: 1rem;
+}
+.job .MuiTypography-root{
+  font-family: "Audiowide", sans-serif;
+  color: #a5d7e8;
+}
+.job .SearchCar input{
+  background-color: #a5d7e8!important;
+}
+.job .SearchCar{
+  margin-top: 0.5rem;
+  padding: 0.2rem;
+  border-radius: 4px;
+  background-color: #a5d7e8;
 }
 .form-select{
   background-color: #19376d !important;
@@ -388,6 +409,7 @@ tr {
 .admin .MuiPaper-root{
   background-color: #19376d;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .admin .MuiTypography-root{
   font-family: "Audiowide", sans-serif;

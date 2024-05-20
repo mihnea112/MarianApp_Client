@@ -9,7 +9,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import React, { useEffect, useState } from "react";
 import { getProxyy } from "../App";
 import moment from "moment";
-import { start } from "repl";
 
 function AdminDash() {
   const [cars, setCars] = useState([]);
@@ -19,14 +18,6 @@ function AdminDash() {
   const [email, setEmail] = useState("");
   const [search, setSearch] = useState("");
   const lsToken = localStorage.getItem("token");
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({ token: lsToken }),
-  };
   async function updateData() {
     const lsToken = localStorage.getItem("token");
     const options = {

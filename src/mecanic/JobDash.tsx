@@ -1,13 +1,23 @@
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 import React, { useEffect, useState } from "react";
 import { getProxyy } from "../App";
 import { useParams } from "react-router-dom";
 import { Slider } from "@mui/material";
+import moment from "moment";
 export default function JobDash() {
   const { id } = useParams();
   const [role, setRole] = useState(null);
   const [cars, setCars] = useState(null);
   const [jobs, setJobs] = useState([]);
+  const [history, setHistory] = useState([]);
   const [piese, setPiese] = useState("");
+  const [checklist, setChecklist] = useState(false);
   const [inspection, setInspection] = useState([]);
   const lsToken = localStorage.getItem("token");
 
@@ -20,6 +30,16 @@ export default function JobDash() {
           carI = data[0].carId;
           setJobs(data);
           setPiese(data[0].piese);
+          if (data[0].status == "Done") {
+            setChecklist(true);
+          } else {
+            setChecklist(false);
+          }
+        });
+      await fetch(getProxyy() + `/job/` + carI)
+        .then((response) => response.json())
+        .then((data) => {
+          setHistory(data);
         });
       await fetch(getProxyy() + `/car/` + carI)
         .then((response) => response.json())
@@ -57,9 +77,7 @@ export default function JobDash() {
       .then((data) => {
         setJobs(data);
       });
-    if (e.target.value === "Done") {
-      window.location.replace("/mecanic");
-    }
+    await updateData();
   }
   useEffect(() => {
     updateData();
@@ -89,7 +107,6 @@ export default function JobDash() {
     };
     const response = await fetch(getProxyy() + "/inspection", options);
     console.log(response);
-    updateData();
   }
   async function handleSave() {
     const lsToken = localStorage.getItem("token");
@@ -113,7 +130,7 @@ export default function JobDash() {
       {cars != null && (
         <div className="container">
           <h1> Job Nr.#{id}</h1>
-          <div className="row">
+          <div className="row margin">
             <div className="col-md-6">
               <h5>Tasks:{(jobs as any)[0].tasks}</h5>
               <h5>Status</h5>
@@ -134,7 +151,7 @@ export default function JobDash() {
             </div>
           </div>
           {role == "2" && (
-            <div className="container">
+            <div className="container margin">
               <h3>Add Piese</h3>
               <input
                 type="text"
@@ -148,25 +165,67 @@ export default function JobDash() {
               </button>
             </div>
           )}
-          <div className="row">
-            {inspection.map((item, i) => (
-              <div key={i} className="col-md-3">
-                <h5>{(item as any).item_name}</h5>
-                <Slider
-                  aria-label="Temperature"
-                  valueLabelDisplay="auto"
-                  shiftStep={30}
-                  step={1}
-                  marks
-                  min={0}
-                  value={(item as any).val}
-                  onChange={(_: any, val: any) => {
-                    handleSlider(val, i);
-                  }}
-                  max={2}
-                />
-              </div>
-            ))}
+          {checklist == true && (
+            <div className="row">
+              {inspection.map((item, i) => (
+                <div key={i} className="col-md-3">
+                  <h5>{(item as any).item_name}</h5>
+                  <Slider
+                    aria-label="Temperature"
+                    valueLabelDisplay="auto"
+                    shiftStep={30}
+                    step={1}
+                    marks
+                    min={0}
+                    value={(item as any).val}
+                    onChange={(_: any, val: any) => {
+                      handleSlider(val, i);
+                    }}
+                    max={2}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="container">
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ArrowDownwardIcon />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  <Typography>Car History</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Tasks</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {history.length > 0 && (
+                        <>
+                          {history.map((job:any, i) => (
+                            <tr key={i}>
+                              <td>{job.status}</td>
+                              <td>{job.tasks}</td>
+                              <td>{moment(
+                                    (job.date as string).split("T", 1),
+                                    "YYYY-MM-DD"
+                                  )
+                                    .format("DD.MM.YYYY")
+                                    .toString()}</td>
+                            </tr>
+                          ))}
+                        </>
+                      )}
+                    </tbody>
+                  </table>
+                </AccordionDetails>
+              </Accordion>
           </div>
         </div>
       )}
