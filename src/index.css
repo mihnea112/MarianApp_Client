@@ -160,6 +160,7 @@ input {
   background-color: #0b2447 !important;
   border-color: #a5d7e8 !important;
   color: #fff !important;
+  width: 90%;
 }
 .contact-form ::placeholder {
   color: #a5d7e8 !important;

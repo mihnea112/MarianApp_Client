@@ -17,6 +17,7 @@ export default function JobDash() {
   const [jobs, setJobs] = useState([]);
   const [history, setHistory] = useState([]);
   const [piese, setPiese] = useState("");
+  const [feedback, setFeedback] = useState("");
   const [checklist, setChecklist] = useState(false);
   const [inspection, setInspection] = useState([]);
   const lsToken = localStorage.getItem("token");
@@ -30,6 +31,7 @@ export default function JobDash() {
           carI = data[0].carId;
           setJobs(data);
           setPiese(data[0].piese);
+          setFeedback(data[0].feedback);
           if (data[0].status == "Done") {
             setChecklist(true);
           } else {
@@ -125,6 +127,23 @@ export default function JobDash() {
     const response = await fetch(getProxyy() + "/piese", options);
     console.log(response);
   }
+  async function handleSavef() {
+    const lsToken = localStorage.getItem("token");
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        jobId: id,
+        content: feedback,
+        token: lsToken,
+      }),
+    };
+    const response = await fetch(getProxyy() + "/feedback", options);
+    console.log(response);
+  }
   return (
     <section className="job">
       {cars != null && (
@@ -151,81 +170,100 @@ export default function JobDash() {
             </div>
           </div>
           {role == "2" && (
-            <div className="container margin">
-              <h3>Add Piese</h3>
-              <input
-                type="text"
-                value={piese}
-                onChange={(e: any) => {
-                  setPiese(e.target.value);
-                }}
-              />
-              <button className="btn btn-primary" onClick={handleSave}>
-                Save
-              </button>
+            <div className="row">
+              <div className="col-md-6">
+                <h3>Add Piese</h3>
+                <input
+                  type="text"
+                  value={piese}
+                  onChange={(e: any) => {
+                    setPiese(e.target.value);
+                  }}
+                />
+                <button className="btn btn-primary" onClick={handleSave}>
+                  Save
+                </button>
+              </div>
+              <div className="col-md-6">
+                <h3>Feedback Propietar</h3>
+                <input
+                  type="text"
+                  value={feedback}
+                  onChange={(e: any) => {
+                    setFeedback(e.target.value);
+                  }}
+                />
+                <button className="btn btn-primary" onClick={handleSavef}>
+                  Save
+                </button>
+              </div>
             </div>
           )}
           {checklist == true && (
-            <div className="row">
-              {inspection.map((item, i) => (
-                <div key={i} className="col-md-3">
-                  <h5>{(item as any).item_name}</h5>
-                  <Slider
-                    aria-label="Temperature"
-                    valueLabelDisplay="auto"
-                    shiftStep={30}
-                    step={1}
-                    marks
-                    min={0}
-                    value={(item as any).val}
-                    onChange={(_: any, val: any) => {
-                      handleSlider(val, i);
-                    }}
-                    max={2}
-                  />
-                </div>
-              ))}
+            <div className="container">
+              <div className="row">
+                {inspection.map((item, i) => (
+                  <div key={i} className="col-md-3">
+                    <h5>{(item as any).item_name}</h5>
+                    <Slider
+                      aria-label="Temperature"
+                      valueLabelDisplay="auto"
+                      shiftStep={30}
+                      step={1}
+                      marks
+                      min={0}
+                      value={(item as any).val}
+                      onChange={(_: any, val: any) => {
+                        handleSlider(val, i);
+                      }}
+                      max={2}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           <div className="container">
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ArrowDownwardIcon />}
-                  aria-controls="panel1-content"
-                  id="panel1-header"
-                >
-                  <Typography>Car History</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Status</th>
-                        <th>Tasks</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {history.length > 0 && (
-                        <>
-                          {history.map((job:any, i) => (
-                            <tr key={i}>
-                              <td>{job.status}</td>
-                              <td>{job.tasks}</td>
-                              <td>{moment(
-                                    (job.date as string).split("T", 1),
-                                    "YYYY-MM-DD"
-                                  )
-                                    .format("DD.MM.YYYY")
-                                    .toString()}</td>
-                            </tr>
-                          ))}
-                        </>
-                      )}
-                    </tbody>
-                  </table>
-                </AccordionDetails>
-              </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ArrowDownwardIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                <Typography>Car History</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th>Tasks</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {history.length > 0 && (
+                      <>
+                        {history.map((job: any, i) => (
+                          <tr key={i}>
+                            <td>{job.status}</td>
+                            <td>{job.tasks}</td>
+                            <td>
+                              {moment(
+                                (job.date as string).split("T", 1),
+                                "YYYY-MM-DD"
+                              )
+                                .format("DD.MM.YYYY")
+                                .toString()}
+                            </td>
+                          </tr>
+                        ))}
+                      </>
+                    )}
+                  </tbody>
+                </table>
+              </AccordionDetails>
+            </Accordion>
           </div>
         </div>
       )}

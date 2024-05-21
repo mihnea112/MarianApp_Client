@@ -120,6 +120,14 @@ function AdminDash() {
                       <Typography>{(car as any).nPlate}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          window.location.replace("/addJob/" + (car as any).id);
+                        }}
+                      >
+                        Add Job
+                      </button>
                       <table>
                         {(car as any).jobs.length > 0 && (
                           <thead>
@@ -162,7 +170,12 @@ function AdminDash() {
                                   options={users.map(
                                     (user: { name: string }) => user.name
                                   )}
-                                  mechanics={users.map((user:{id:number,name:string})=>({id:user.id,name:user.name}))}
+                                  mechanics={users.map(
+                                    (user: { id: number; name: string }) => ({
+                                      id: user.id,
+                                      name: user.name,
+                                    })
+                                  )}
                                 ></SearchMechanic>
                               </td>
                             </tr>
@@ -368,27 +381,26 @@ function SearchMechanic({
   options,
   startValue,
   jobid,
-  mechanics
+  mechanics,
 }: {
-  jobid: number,
+  jobid: number;
   startValue?: string;
   options: string[];
-  mechanics: {id:number,name:string}[]
-
+  mechanics: { id: number; name: string }[];
 }) {
   // const options = ['Option 1', 'Option 2'];
 
   //[string, React.Dispatch<React.SetStateAction<string>>]
 
   const [value, setValue] = useState(startValue || "");
-  async function handleAdd(id:number) {
+  async function handleAdd(id: number) {
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({id:jobid, mecid: id }),
+      body: JSON.stringify({ id: jobid, mecid: id }),
     };
     const response = await fetch(getProxyy() + "/job/mecanic", options);
     if (response.status === 201) {
@@ -405,15 +417,13 @@ function SearchMechanic({
         value={value}
         onChange={(_: any, newValue: string | null) => {
           setValue(newValue || "");
-          if(newValue!=null)
-            {
-              const [mecanicId]=mechanics.filter((user: any) => user.name === (newValue)).map((user:{id:number})=>user.id)
-              handleAdd(mecanicId)
-            }
-          else
-            handleAdd(0)
+          if (newValue != null) {
+            const [mecanicId] = mechanics
+              .filter((user: any) => user.name === newValue)
+              .map((user: { id: number }) => user.id);
+            handleAdd(mecanicId);
+          } else handleAdd(0);
           console.log(newValue);
-          
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
