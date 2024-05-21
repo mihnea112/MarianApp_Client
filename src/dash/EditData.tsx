@@ -11,8 +11,9 @@ const token = localStorage.getItem("token");
   const fetchData = async () => {
     await fetch(getProxyy() + `/userdata?token=` + token)
       .then((response) => response.json())
-      .then((data) => {
+      .then(([data]) => {
         setUserData(data);
+        console.log(data);
       });
   };
   useEffect(() => {
@@ -34,7 +35,7 @@ const token = localStorage.getItem("token");
       <section className="login">
         <div className="container">
           <div className="login-div">
-            <h1>Register</h1>
+            <h1>Contul meu</h1>
             <div className="form-group">
               <input
                 type="text"

@@ -9,6 +9,7 @@ import Register from "./auth/Register";
 import Dash from "./dash/Dash";
 import AddCar from "./dash/addCar";
 import AddJob from "./dash/addJob";
+import UserData from "./dash/EditData";
 import Car from "./dash/Car";
 import EditData from "./dash/EditData";
 import MecanicDash from "./mecanic/MecanicDash";
@@ -105,6 +106,10 @@ function App() {
     {
       path: "/addMecanic",
       element: <>{userIsLoggedIn ? <AddMecanic /> : <Login />}</>,
+    },
+    {
+      path: "/user",
+      element: <>{userIsLoggedIn ? <UserData /> : <Login />}</>,
     },
   ]);
   return (

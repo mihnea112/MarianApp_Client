@@ -93,23 +93,13 @@ export default function Navbar({ userIsLoggedIn, logout }: INavProps) {
                     {userIsLoggedIn ? (
                       <>
                         <li className="nav-item">
-                          <a className="nav-link" href="/#about">
-                            Despre noi
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a className="nav-link" href="/#servicii">
-                            Servicii
-                          </a>
-                        </li>
-                        <li className="nav-item">
-                          <a className="btn nav-link" href="/#contact">
-                            Contact
-                          </a>
-                        </li>
-                        <li className="nav-item">
                           <a className="btn nav-link" href="/dash">
                             Masinile mele
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a className="btn nav-link" href="/user">
+                            Contul Meu
                           </a>
                         </li>
                         <li className="nav-item">
