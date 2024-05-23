@@ -72,6 +72,8 @@ export default function JobDash() {
         id: (jobs as any)[0].id,
         token: lsToken,
         status: e.target.value,
+        nPlate:(cars as any)[0].nPlate,
+        uId:(cars as any)[0].userId,
       }),
     };
     await fetch(getProxyy() + "/status", options)
@@ -108,6 +110,7 @@ export default function JobDash() {
       }),
     };
     const response = await fetch(getProxyy() + "/inspection", options);
+    updateData();
     console.log(response);
   }
   async function handleSave() {
