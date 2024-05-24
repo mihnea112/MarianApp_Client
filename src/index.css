@@ -19,6 +19,7 @@ code {
 }
 .navbar {
   background-color: #0b2447;
+  display: block;
 }
 .carousel-item img {
   padding-top: 6rem;
@@ -60,7 +61,7 @@ code {
 .about {
   text-align: center;
   background-color: #0b2447;
-  padding-top: 2rem;
+  padding-top: 3rem;
   padding-bottom: 2rem;
 }
 .about h1 {
@@ -115,7 +116,7 @@ code {
 }
 .servicii .overlay {
   display: block;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(25, 55, 109, 0.75);
   position: absolute;
   bottom: 5rem;
   left: 7rem;
@@ -199,15 +200,26 @@ input {
   padding-top: 1rem;
 }
 .login {
-  padding-top: 7rem;
+  padding-top: 8rem;
   background-color: #0b2447;
 }
 .login h1 {
   color: #a5d7e8 !important;
   font-family: "Audiowide", sans-serif !important;
 }
+.login .checkb{
+  width: fit-content;
+}
+.login a {
+  display: inline;
+  text-decoration: none;
+  padding-left: 1rem;
+  color: #a5d7e8 !important;
+  font-family: "Audiowide", sans-serif !important;
+}
 .login h5 {
   display: inline;
+  text-decoration: none;
   padding-left: 1rem;
   color: #a5d7e8 !important;
   font-family: "Audiowide", sans-serif !important;
@@ -243,7 +255,7 @@ footer h5 {
 }
 /* dash */
 .cars {
-  padding-top: 6rem;
+  padding-top: 8rem;
   text-align: center;
   background-color: #0b2447;
   padding-bottom: 2rem;
@@ -272,7 +284,7 @@ tr {
   border: 2px solid #a5d7e8;
 }
 .add {
-  padding-top: 7rem;
+  padding-top: 8rem;
   background-color: #0b2447;
 }
 .add h1 {
@@ -300,7 +312,7 @@ tr {
   border-color: #19376d !important;
 }
 .car {
-  padding-top: 6rem;
+  padding-top: 8rem;
   text-align: center;
   background-color: #0b2447;
   padding-bottom: 2rem;
@@ -334,7 +346,7 @@ tr {
   margin-bottom: 1rem;
 }
 .job {
-  padding-top: 4rem;
+  padding-top: 6rem;
   text-align: center;
   background-color: #0b2447;
   padding-bottom: 2rem;
@@ -390,7 +402,7 @@ tr {
 }
 
 .admin {
-  padding-top: 4rem;
+  padding-top: 6rem;
   text-align: center;
   background-color: #0b2447;
   padding-bottom: 2rem;

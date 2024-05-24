@@ -68,6 +68,10 @@ function Login() {
                 placeholder="Parola"
               />
             </div>
+            <div className="form-group">
+              <h5>Nu aveti cont?</h5>
+              <a href="/register">Register</a>
+            </div>
             <button className="btn btn-primary" onClick={submit}>
               Submit
             </button>

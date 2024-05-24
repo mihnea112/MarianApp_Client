@@ -25,10 +25,10 @@ export default function Navbar({ userIsLoggedIn, logout }: INavProps) {
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <img
-            src="images/ITS-min.png"
+            src="/img/logo.png"
             alt="Bootstrap"
-            width="96"
-            height="80"
+            width="70"
+            height="70"
           />
         </a>
         <button
@@ -127,7 +127,7 @@ export default function Navbar({ userIsLoggedIn, logout }: INavProps) {
                         </li>
                         <li className="nav-item">
                           <a className="btn nav-link" href="/login">
-                            Masinile mele/Login
+                            Login/Register
                           </a>
                         </li>
                       </>

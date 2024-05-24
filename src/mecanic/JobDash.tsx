@@ -32,11 +32,13 @@ export default function JobDash() {
           setJobs(data);
           setPiese(data[0].piese);
           setFeedback(data[0].feedback);
-          if (data[0].status == "Done") {
+          if (data[0].status === "Done") {
             setChecklist(true);
           } else {
             setChecklist(false);
           }
+          console.log(data[0].status);
+          
         });
       await fetch(getProxyy() + `/job/` + carI)
         .then((response) => response.json())
@@ -52,6 +54,8 @@ export default function JobDash() {
         .then((response) => response.json())
         .then((data) => {
           setInspection(data);
+          console.log(data);
+          
         });
       await fetch(getProxyy() + `/user?token=` + lsToken)
         .then((response) => response.json())
@@ -81,7 +85,6 @@ export default function JobDash() {
       .then((data) => {
         setJobs(data);
       });
-    await updateData();
   }
   useEffect(() => {
     updateData();
@@ -202,7 +205,6 @@ export default function JobDash() {
               </div>
             </div>
           )}
-          {checklist == true && (
             <div className="container">
               <div className="row">
                 {inspection.map((item, i) => (
@@ -225,7 +227,6 @@ export default function JobDash() {
                 ))}
               </div>
             </div>
-          )}
           <div className="container">
             <Accordion>
               <AccordionSummary

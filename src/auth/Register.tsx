@@ -126,10 +126,12 @@ function Register() {
               <input
                 type="checkbox"
                 name="checkbox"
+                className="checkb"
                 onChange={()=> {setChx(prevData => !prevData)}}
                 checked={checkbox}
               />
-              <h5>
+              <h5 
+              >
                 Sunt de acord cu politica de protectie a datelor cu carcater
                 personal
               </h5>
