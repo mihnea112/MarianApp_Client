@@ -414,6 +414,9 @@ tr {
   color: #a5d7e8;
   padding-top: 1rem;
 }
+.admin p{
+  color: #a5d7e8;
+}
 .admin table {
   background-color: #19376d;
   color: #a5d7e8;

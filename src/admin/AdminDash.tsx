@@ -120,6 +120,17 @@ function AdminDash() {
                       <Typography>{(car as any).nPlate}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
+                      <h5>Detalii Propietar</h5>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <p>Nume: {(car as any).user.name}</p>
+                          <p>Adresa: {(car as any).user.adresa}</p>
+                        </div>
+                        <div className="col-md-6">
+                          <p>Telefon: {(car as any).user.telefon}</p>
+                          <p>Email: {(car as any).user.email}</p>
+                        </div>
+                      </div>
                       <button
                         className="btn btn-primary"
                         onClick={() => {

@@ -158,7 +158,7 @@ export default function JobDash() {
           <div className="row margin">
             <div className="col-md-6">
               <h5>Tasks:{(jobs as any)[0].tasks}</h5>
-              <h5>Status</h5>
+              <h5>Status:</h5>
               <select
                 name="status"
                 defaultValue={(jobs as any)[0].status}
@@ -234,7 +234,7 @@ export default function JobDash() {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
-                <Typography>Car History</Typography>
+                <Typography>Istoricul Vehiculului</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <table>
