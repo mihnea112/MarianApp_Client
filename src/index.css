@@ -278,9 +278,9 @@ footer h5 {
   width: 100%;
 }
 .cars table,
-td,
-th,
-tr {
+.cars td,
+.cars th,
+.cars tr {
   border: 2px solid #a5d7e8;
   padding-top:1rem;
   padding-bottom:1rem;
