@@ -6,7 +6,6 @@ export default function Main() {
     <>
       <CarouselHero></CarouselHero>
       <Content></Content>
-      <Contact></Contact>
     </>
   );
 }
