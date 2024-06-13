@@ -282,6 +282,8 @@ td,
 th,
 tr {
   border: 2px solid #a5d7e8;
+  padding-top:1rem;
+  padding-bottom:1rem;
 }
 .add {
   padding-top: 8rem;

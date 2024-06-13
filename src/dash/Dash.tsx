@@ -44,11 +44,9 @@ function Dash() {
                   <th>Serie Sasiu</th>
                 </tr>
                 {cars.map((cars, i) => (
-                  <tr key={i}>
+                  <tr key={i} onClick={()=>{window.location.href = "/car/" + (cars as any).id}}>
                     <td>
-                      <a href={"/car/" + (cars as any).id} className="btn">
                         {(cars as any).nPlate}
-                      </a>
                     </td>
                     <td>{(cars as any).VIN}</td>
                   </tr>

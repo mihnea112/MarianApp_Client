@@ -9,7 +9,7 @@ export default function Footer(){
             <i className="bi bi-tiktok"></i>
           </div>
           <div className="col-md-6 st">
-            <h5>Copyright: ©Bucovan Mihnea-InfoEducatie</h5>
+            <h5>Copyright: ©Bucovan Mihnea</h5>
           </div>
         </div>
       </div>
