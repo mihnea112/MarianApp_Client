@@ -121,11 +121,6 @@ export default function Navbar({ userIsLoggedIn, logout }: INavProps) {
                           </a>
                         </li>
                         <li className="nav-item">
-                          <a className="btn nav-link" href="/#contact">
-                            Contact
-                          </a>
-                        </li>
-                        <li className="nav-item">
                           <a className="btn nav-link" href="/login">
                             Login/Register
                           </a>
