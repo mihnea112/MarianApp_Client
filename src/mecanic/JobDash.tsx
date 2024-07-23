@@ -38,7 +38,6 @@ export default function JobDash() {
             setChecklist(false);
           }
           console.log(data[0].status);
-          
         });
       await fetch(getProxyy() + `/job/` + carI)
         .then((response) => response.json())
@@ -55,7 +54,6 @@ export default function JobDash() {
         .then((data) => {
           setInspection(data);
           console.log(data);
-          
         });
       await fetch(getProxyy() + `/user?token=` + lsToken)
         .then((response) => response.json())
@@ -76,8 +74,8 @@ export default function JobDash() {
         id: (jobs as any)[0].id,
         token: lsToken,
         status: e.target.value,
-        nPlate:(cars as any)[0].nPlate,
-        uId:(cars as any)[0].userId,
+        nPlate: (cars as any)[0].nPlate,
+        uId: (cars as any)[0].userId,
       }),
     };
     await fetch(getProxyy() + "/status", options)
@@ -205,28 +203,28 @@ export default function JobDash() {
               </div>
             </div>
           )}
-            <div className="container">
-              <div className="row">
-                {inspection.map((item, i) => (
-                  <div key={i} className="col-md-3">
-                    <h5>{(item as any).item_name}</h5>
-                    <Slider
-                      aria-label="Temperature"
-                      valueLabelDisplay="auto"
-                      shiftStep={30}
-                      step={1}
-                      marks
-                      min={0}
-                      value={(item as any).val}
-                      onChange={(_: any, val: any) => {
-                        handleSlider(val, i);
-                      }}
-                      max={2}
-                    />
-                  </div>
-                ))}
-              </div>
+          <div className="container">
+            <div className="row">
+              {inspection.map((item, i) => (
+                <div key={i} className="col-md-3">
+                  <h5>{(item as any).item_name}</h5>
+                  <Slider
+                    aria-label="Temperature"
+                    valueLabelDisplay="auto"
+                    shiftStep={30}
+                    step={1}
+                    marks
+                    min={0}
+                    value={(item as any).val}
+                    onChange={(_: any, val: any) => {
+                      handleSlider(val, i);
+                    }}
+                    max={2}
+                  />
+                </div>
+              ))}
             </div>
+          </div>
           <div className="container">
             <Accordion>
               <AccordionSummary
