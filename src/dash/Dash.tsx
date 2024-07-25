@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getProxyy } from "../App";
+import { DirectionsCarFilled } from "@mui/icons-material";
+import { colors } from "@mui/material";
 
 function Dash() {
   const [cars, setCars] = useState([]);
@@ -23,7 +25,6 @@ function Dash() {
       const data = await response.json();
       setCars(data);
       console.log(cars);
-      
     } else {
       alert("An error occured on loading your tasks");
     }
@@ -36,9 +37,25 @@ function Dash() {
           <a href="/addCar" className="btn">
             Add Car
           </a>
-          {cars.length != 0 && (
-            <>
-              <table>
+          <div className="row">
+            {cars.length != 0 && (
+              <>
+                {cars.map((cars, i) => (
+                  <div
+                    className="col-md-4 carss"
+                    onClick={() => {
+                      window.location.href = "/car/" + (cars as any).id;
+                    }}
+                  >
+                    <DirectionsCarFilled
+                      sx={{ fontSize: 60 }}
+                    ></DirectionsCarFilled>
+                    <h5>License Plate: {(cars as any).nPlate}</h5>
+                    <h5>VIN: {(cars as any).VIN}</h5>
+                  </div>
+                ))}
+
+                {/* <table>
                 <tr>
                   <th>Numar Inmatriculare</th>
                   <th>Serie Sasiu</th>
@@ -51,9 +68,10 @@ function Dash() {
                     <td>{(cars as any).VIN}</td>
                   </tr>
                 ))}
-              </table>
-            </>
-          )}
+              </table> */}
+              </>
+            )}
+          </div>
         </div>
       </section>
     </>

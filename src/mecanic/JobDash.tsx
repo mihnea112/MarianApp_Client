@@ -18,6 +18,7 @@ export default function JobDash() {
   const [history, setHistory] = useState([]);
   const [piese, setPiese] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [deadline, setDeadline] = useState("");
   const [checklist, setChecklist] = useState(false);
   const [inspection, setInspection] = useState([]);
   const lsToken = localStorage.getItem("token");
@@ -32,7 +33,8 @@ export default function JobDash() {
           setJobs(data);
           setPiese(data[0].piese);
           setFeedback(data[0].feedback);
-          if (data[0].status === "Done") {
+          setDeadline(data[0].deadline);
+          if (data[0].status === "In Progress") {
             setChecklist(true);
           } else {
             setChecklist(false);
@@ -82,6 +84,11 @@ export default function JobDash() {
       .then((response) => response.json())
       .then((data) => {
         setJobs(data);
+        if (data[0].status === "In Progress") {
+          setChecklist(true);
+        } else {
+          setChecklist(false);
+        }
       });
   }
   useEffect(() => {
@@ -131,6 +138,24 @@ export default function JobDash() {
     const response = await fetch(getProxyy() + "/piese", options);
     console.log(response);
   }
+  async function handleSaveD() {
+    const lsToken = localStorage.getItem("token");
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        token: lsToken,
+        deadline: deadline,
+        uId: (cars as any)[0].userId,
+      }),
+    };
+    const response = await fetch(getProxyy() + "/deadline", options);
+    console.log(response);
+  }
   async function handleSavef() {
     const lsToken = localStorage.getItem("token");
     const options = {
@@ -172,6 +197,21 @@ export default function JobDash() {
               <h5>Nr. Inmatriculare: {(cars as any)[0].nPlate}</h5>
               <h5>Vin: {(cars as any)[0].VIN}</h5>
             </div>
+            {checklist && (
+              <div className="col-md-6 mx-auto">
+                <h3>Approximate deadline</h3>
+                <input
+                  type="text"
+                  value={deadline}
+                  onChange={(e: any) => {
+                    setDeadline(e.target.value);
+                  }}
+                />
+                <button className="btn btn-primary" onClick={handleSaveD}>
+                  Save
+                </button>
+              </div>
+            )}
           </div>
           {role == "2" && (
             <div className="row">
@@ -209,7 +249,7 @@ export default function JobDash() {
                 <div key={i} className="col-md-3">
                   <h5>{(item as any).item_name}</h5>
                   <Slider
-                    aria-label="Temperature"
+                    aria-label="Checklist"
                     valueLabelDisplay="auto"
                     shiftStep={30}
                     step={1}

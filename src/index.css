@@ -207,7 +207,7 @@ input {
   color: #a5d7e8 !important;
   font-family: "Audiowide", sans-serif !important;
 }
-.login .checkb{
+.login .checkb {
   width: fit-content;
 }
 .login a {
@@ -265,6 +265,14 @@ footer h5 {
   color: #a5d7e8;
   padding-top: 1rem;
 }
+.cars h5 {
+  font-family: "Audiowide", sans-serif;
+  color: #a5d7e8;
+  font-size: 20;
+}
+.cars .MuiSvgIcon-root  {
+  color: #a5d7e8;
+}
 .cars .btn {
   color: #a5d7e8;
   background-color: #19376d !important;
@@ -282,8 +290,8 @@ footer h5 {
 .cars th,
 .cars tr {
   border: 2px solid #a5d7e8;
-  padding-top:1rem;
-  padding-bottom:1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .add {
   padding-top: 8rem;
@@ -353,7 +361,7 @@ tr {
   background-color: #0b2447;
   padding-bottom: 2rem;
 }
-.job .margin{
+.job .margin {
   margin-bottom: 1rem;
 }
 
@@ -380,24 +388,24 @@ tr {
   color: #a5d7e8 !important;
   border-color: #19376d;
 }
-.job .MuiPaper-root{
+.job .MuiPaper-root {
   background-color: #19376d;
   margin-top: 1rem;
 }
-.job .MuiTypography-root{
+.job .MuiTypography-root {
   font-family: "Audiowide", sans-serif;
   color: #a5d7e8;
 }
-.job .SearchCar input{
-  background-color: #a5d7e8!important;
+.job .SearchCar input {
+  background-color: #a5d7e8 !important;
 }
-.job .SearchCar{
+.job .SearchCar {
   margin-top: 0.5rem;
   padding: 0.2rem;
   border-radius: 4px;
   background-color: #a5d7e8;
 }
-.form-select{
+.form-select {
   background-color: #19376d !important;
   color: #a5d7e8 !important;
   border-color: #19376d;
@@ -416,7 +424,7 @@ tr {
   color: #a5d7e8;
   padding-top: 1rem;
 }
-.admin p{
+.admin p {
   color: #a5d7e8;
 }
 .admin table {
@@ -424,12 +432,12 @@ tr {
   color: #a5d7e8;
   width: 100%;
 }
-.admin .MuiPaper-root{
+.admin .MuiPaper-root {
   background-color: #19376d;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.admin .MuiTypography-root{
+.admin .MuiTypography-root {
   font-family: "Audiowide", sans-serif;
   color: #a5d7e8;
 }
@@ -439,19 +447,19 @@ th,
 tr {
   border: 2px solid #a5d7e8;
 }
-.admin .MuiFormLabel-root{
+.admin .MuiFormLabel-root {
   color: #0b2447;
 }
-.admin .SearchCar input{
-  background-color: #a5d7e8!important;
+.admin .SearchCar input {
+  background-color: #a5d7e8 !important;
 }
-.admin .SearchCar{
+.admin .SearchCar {
   margin-top: 0.5rem;
   padding: 0.2rem;
   border-radius: 4px;
   background-color: #a5d7e8;
 }
-.admin .SearchMechanic{
+.admin .SearchMechanic {
   border-radius: 4px;
 }
 .admin .btn {
@@ -459,4 +467,3 @@ tr {
   color: #a5d7e8 !important;
   border-color: #19376d;
 }
-

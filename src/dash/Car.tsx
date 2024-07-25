@@ -51,6 +51,7 @@ function Car() {
                 <th>Data</th>
                 <th>Piese Schimabte</th>
                 <th>Feedback</th>
+                <th>Approximate deadline</th>
               </tr>
               {jobData.map((job, i) => (
                 <tr key={i}>
@@ -66,6 +67,7 @@ function Car() {
                   </td>
                   <td>{(job as any).piese}</td>
                   <td>{(job as any).feedback}</td>
+                  <td>{(job as any).deadline}</td>
                 </tr>
               ))}
             </table>
