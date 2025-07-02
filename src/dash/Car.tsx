@@ -29,15 +29,15 @@ function Car() {
   return (
     <section className="car">
       <div className="container">
-        <h1>Your car</h1>
+        <h1>My Car</h1>
         {carData != null && (
           <div>
             <div className="row">
               <div className="col-md-6">
-                <h5>Numar inmatriculare: {(carData as any)[0].nPlate}</h5>
+                <h5>License Plate: {(carData as any)[0].nPlate}</h5>
               </div>
               <div className="col-md-6">
-                <h5>Serie sasiu/VIN: {(carData as any)[0].VIN}</h5>
+                <h5>VIN: {(carData as any)[0].VIN}</h5>
               </div>
             </div>
             <h1>Job Request</h1>
@@ -49,7 +49,7 @@ function Car() {
                 <th>Tasks</th>
                 <th>Status Service</th>
                 <th>Data</th>
-                <th>Piese Schimabte</th>
+                <th>Changed Parts</th>
                 <th>Feedback</th>
                 <th>Approximate deadline</th>
               </tr>

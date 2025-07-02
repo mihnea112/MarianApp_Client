@@ -94,12 +94,12 @@ export default function Navbar({ userIsLoggedIn, logout }: INavProps) {
                       <>
                         <li className="nav-item">
                           <a className="btn nav-link" href="/dash">
-                            Masinile mele
+                            My Cars
                           </a>
                         </li>
                         <li className="nav-item">
                           <a className="btn nav-link" href="/user">
-                            Contul Meu
+                            My Account
                           </a>
                         </li>
                         <li className="nav-item">

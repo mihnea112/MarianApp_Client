@@ -272,7 +272,7 @@ export default function JobDash() {
                 aria-controls="panel1-content"
                 id="panel1-header"
               >
-                <Typography>Istoricul Vehiculului</Typography>
+                <Typography>Vehicle history</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <table>

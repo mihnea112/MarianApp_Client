@@ -33,7 +33,7 @@ function Dash() {
     <>
       <section className="cars">
         <div className="container">
-          <h1>Your cars</h1>
+          <h1>My Cars</h1>
           <a href="/addCar" className="btn">
             Add Car
           </a>
